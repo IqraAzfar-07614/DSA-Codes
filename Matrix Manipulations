@@ -1,0 +1,19 @@
+Matrix Addition
+
+def matrix_addition(A,B):
+    for x in range(len(A)):
+        if len(A[x]) != len(B[x]):
+            return("Matrices A and B don't have the same dimension required for matrix addition.")
+        else:
+            m_added = []
+            for x in range(len(A)):
+                temp = []
+                for y in range(len(A[x])):
+                    temp.append(A[x][y] + B[x][y])
+                m_added.append(temp)
+            return m_added
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Matrix Multiplication
+
