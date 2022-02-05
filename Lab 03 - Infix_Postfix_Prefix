@@ -20,11 +20,12 @@ def is_empty(lst):
 Q1) Infix to Postfix
 
 def Infix_to_Postfix(expression):
+    operators = ['+', '-', '*', '/', '(', ')']
     presedence = {'+':1, '-':1, '*':2, '/':2}
-    expression = expression.split() #expression converted to list
+    expression = expression.split()
     op_stack, res = [], []
     for x in expression:
-        if x.isalpha() or x.isdigit(): #x is either digit or alpha numeric
+        if x not in operators: 
             res.append(x)
         elif x == '(': 
             push(op_stack, x)
@@ -33,14 +34,13 @@ def Infix_to_Postfix(expression):
                 res.append(pop(op_stack))
             pop(op_stack) #pops left paranthesis from stack
         else: #x must be an operator
-            while op_stack and top(op_stack) != '(' and presedence[x] <= presedence[top(op_stack)]: 
-                res.append(pop(op_stack)) #operands are appended while presedence is lower
+            while not is_empty(op_stack) and top(op_stack) != '(' and presedence[x] <= presedence[top(op_stack)]: 
+                res.append(pop(op_stack)) #operands are appended while presedence is lower, stack is not empty, and top element is not (
             push(op_stack, x) 
     while not is_empty(op_stack): #adds all remaining operands to the end of the resultant list
         res.append(pop(op_stack))
     res = " ".join(res) #converts the list to a string with space in between elements
     return res
-               
 
 expression = input()
 
@@ -55,15 +55,8 @@ def Infix_to_Prefix(expression):
     presedence = {'+':1, '-':1, '*':2, '/':2}
     expression = expression.split()
     rev_expression, op_stack = [], []
-    for x in range(len(expression)):
-        if x == '(':
-            rev_expression.append(')')
-            pop(expression)
-        elif x == ')':
-            rev_expression.append('(')
-            pop(expression)
-        else:
-            rev_expression.append(pop(expression))
+    for x in range(len(expression)): #reverses the expression
+        rev_expression.append(pop(expression))
     
     for x in rev_expression: #Infix to Postfix wala code copy paste with smoll changes
         if x not in operators: 
@@ -75,8 +68,8 @@ def Infix_to_Prefix(expression):
                 expression.append(pop(op_stack))
             pop(op_stack) #pops left paranthesis from stack
         else: #x must be an operator
-            while op_stack and top(op_stack) != ')' and presedence[x] <= presedence[top(op_stack)]: 
-                expression.append(pop(op_stack)) #operands are appended while presedence is lower
+            while not is_empty(op_stack) and top(op_stack) != ')' and presedence[x] <= presedence[top(op_stack)]: 
+                expression.append(pop(op_stack)) #operands are appended while presedence is lower, stack is not empty, and top element is not (
             push(op_stack, x) 
     while not is_empty(op_stack): #adds all remaining operands to the end of the resultant list
         expression.append(pop(op_stack))
