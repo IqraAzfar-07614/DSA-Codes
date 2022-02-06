@@ -18,6 +18,7 @@ def matrix_addition(A,B):
 
 Matrix Multiplication
 #Will update once Lab 1 is visible as code doesn't check possibility, just multiplies
+
 A, B = [], [] #Matrices to multiply
 C = [] #Empty Matrix to store the multiplied values in
 for i in range(len(A)):
@@ -36,10 +37,10 @@ A = [] #any matrix with n x m dimensions
 def m_t(A):
     C = []
     for i in range(len(A[0])):
-        C.append([0] * len(A))
+        C.append([0] * len(A)) #updates C with m x n dimensions with all 0 elements to be updated
     for i in range(len(A)):
         for j in range(len(A[0])):
-            C[j][i] = A[i][j]
+            C[j][i] = A[i][j] #Transposed
     return C
 
 print(m_t(A))
