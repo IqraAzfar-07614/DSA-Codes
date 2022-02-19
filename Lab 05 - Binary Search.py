@@ -66,8 +66,38 @@ def binary_search_recursive_modified(lst, item, low, high):
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
-Q5) Update Student Records - takes tuples inside lists
+Q5) Update Student Records using binary search - student records are given - tuples inside lists, ID is given - id of student to be changed, 
+record title is given - data to be changed, and data is given - the data that will take the place
+#IDs cannot be changed thus "ID cannot be updated" is returned if record title is ID
+#If ID not found, return "Record not found"
+#Tuple format is, (ID, email id, Mid1 marks, Mid2 marks)
 
+def update_record(student_records, ID, record_title, data):
+    if record_title == "ID":
+        return"ID cannot be updated"
+    low, high = 0, len(student_records) - 1
+    while low <= high:
+        mid = (low+high) // 2 
+        curr = student_records[mid][0]
+        if curr == ID:
+            tup = student_records[mid]
+            if record_title == "Email":
+                updated_tup = (tup[0], data, tup[2], tup[3])
+                student_records[mid] = updated_tup
+                return student_records
+            elif record_title == "Mid1":
+                updated_tup = (tup[0], tup[1], int(data), tup[3])
+                student_records[mid] = updated_tup
+                return student_records
+            elif record_title == "Mid2":
+                updated_tup = (tup[0], tup[1], tup[2], int(data))
+                student_records[mid] = updated_tup
+                return student_records
+        elif curr > ID:
+            high = mid - 1
+        elif curr < ID:
+            low = mid + 1
+    return "Record not found"
 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
