@@ -87,3 +87,38 @@ def merge_sort(lst):
 arr = [12, 11, 13, 5, 6, 7]
 
 print(merge_sort(arr))
+
+-------------------------------------------------------------------------------------------------
+
+Quick Sort
+#Quick Sort is a divide and conquer algorithm like merge sort
+#It picks an element randomly as pivot, and fixes the position of it.
+#The other elements are divided accordingly to the pivot (greater than or less than the pivot)
+
+def partition(start, end, arr): #Function handles sorting part of quick sort
+    pivot_index = start #initializing pivot index to start
+    pivot = arr[pivot_index]
+    #Loop runs till start pointer crosses end pointer in which case it swaps pivot with the element on end pointer
+    while start < end:
+        while start < len(arr) and arr[start] <= pivot:
+            start += 1 #increment the start pointer till it finds an element greater than pivot
+        while arr[end] > pivot:
+            end -= 1 #increment end pointer till it finds an element less than pivot
+        if start < end: #if start and end have not crosses each other yet, swap the numbers on start and end
+            arr[start], arr[end] = arr[end], arr[start]
+    #Swap pivot with element on end pointer, thus putting pivot at its correct sorted position
+    arr[end], arr[pivot_index] = arr[pivot_index], arr[end]
+
+    return end 
+
+def quick_sort(start, end, arr):
+    if start < end:
+        #p is partitioning index, arr[p] is at right place
+        p = partition(start, end, arr)
+        quick_sort(start, p - 1, arr) #sorts elements before partition
+        quick_sort(p + 1, end, arr) #sorts elements after partition
+    return arr
+
+arr = [10, 7, 8, 9, 1, 5]
+start, end = 0, len(arr) - 1
+print(quick_sort(start, end, arr))
